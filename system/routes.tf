@@ -35,7 +35,7 @@ resource "kubernetes_manifest" "howwastoday-tls-ingressroute" {
         "websecure"
       ]
       routes = [{
-        match = "HostSNI(`backend.howwastoday.io`)"
+        match = "Host(`backend.howwastoday.io`)"
         kind = "Rule"
         services = [{
           name = "howwastoday-http"

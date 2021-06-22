@@ -6,8 +6,8 @@ Rough deployment process:
 - Set kubeip secret per original tutorial/
 - Deploy Kubernetes CRDs using terraform in system/traefik-crds 
 - Deploy any services configured in system/routes.tf. It will refuse to allow the routes to be deployed otherwise.
+- Set any TLS secrets in system/routes.tf with certificates from Cloudflare for their domains, e.g. kubectl create secret tls howwastoday-cf-certificate --cert=<pem cert> --key=<pem key> --namespace=howwastoday
 - Deploy the cluster system services (kubeip, traefik, etc) using terraform in system.
-- Set any TLS secrets with certificates from Cloudflare for their domains.
 
 Subsequently changes to things other than the CRDs can generally be performed with just a terraform apply.
 
