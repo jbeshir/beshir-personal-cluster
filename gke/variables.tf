@@ -66,7 +66,7 @@ variable "master_authorized_networks_cidr_blocks" {
 
   default = [
     {
-      # external access to k8s master HTTPS
+      # external access to system master HTTPS
       cidr_block   = "0.0.0.0/0"
       display_name = "default"
     }
