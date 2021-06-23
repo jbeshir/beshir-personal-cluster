@@ -211,7 +211,7 @@ resource "kubernetes_cluster_role_binding" "kubeip_serviceaccount" {
 
 resource "kubernetes_secret" "kubeip_key" {
   metadata {
-    name = "kubeip-key"
+    name      = "kubeip-key"
     namespace = "kube-system"
   }
 

@@ -3,10 +3,10 @@ variable "project" {
   default = "beshir-personal"
 }
 
-locals  {
+locals {
   cluster_name = "main-cluster"
-  region = "us-central1"
-  zone = "${local.region}-a"
+  region       = "us-central1"
+  zone         = "${local.region}-a"
 }
 
 module "cluster" {
@@ -27,7 +27,7 @@ module "cluster" {
   source_subnetwork_ip_ranges_to_nat  = "LIST_OF_SUBNETWORKS"
   source_ip_ranges_to_nat             = ["ALL_IP_RANGES"]
   nat_log_filter                      = "ERRORS_ONLY"
-  logging_service                     = "none"  # Costs 200MB per node at this scale, and produces a LOT of logs
+  logging_service                     = "none" # Costs 200MB per node at this scale, and produces a LOT of logs
   monitoring_service                  = "monitoring.googleapis.com/kubernetes"
 
   node_pools = {

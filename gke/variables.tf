@@ -133,7 +133,7 @@ variable "source_subnetwork_ip_ranges_to_nat" {
 
 # ALL_IP_RANGES, LIST_OF_SECONDARY_IP_RANGES, PRIMARY_IP_RANGE
 variable "source_ip_ranges_to_nat" {
-  type = list
+  type = list(any)
 }
 
 variable "nat_log_filter" {

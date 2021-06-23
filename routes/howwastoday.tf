@@ -9,9 +9,9 @@ data "google_storage_bucket_object_content" "howwastoday-io-tls-key" {
 }
 
 resource "kubernetes_secret" "howwastoday-io-tls-secret" {
-  type  = "kubernetes.io/tls"
+  type = "kubernetes.io/tls"
   metadata {
-    name      = "howwastoday-io-tls-secret"
+    name = "howwastoday-io-tls-secret"
   }
   data = {
     "tls.crt" = data.google_storage_bucket_object_content.howwastoday-io-tls-cert.content
@@ -19,7 +19,7 @@ resource "kubernetes_secret" "howwastoday-io-tls-secret" {
   }
 }
 
-resource "kubectl_manifest" "howwastoday-ingressroute-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "howwastoday-ingressroute-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -38,7 +38,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "howwastoday-tls-ingressroute-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "howwastoday-tls-ingressroute-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute

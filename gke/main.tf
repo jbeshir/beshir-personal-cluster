@@ -3,7 +3,7 @@ resource "google_project_service" "cloudresourcemanager" {
   service = "cloudresourcemanager.googleapis.com"
 
   disable_dependent_services = true
-  disable_on_destroy = false  # Otherwise we can't retrieve current state.
+  disable_on_destroy         = false # Otherwise we can't retrieve current state.
 }
 
 resource "google_project_service" "compute" {
@@ -12,7 +12,7 @@ resource "google_project_service" "compute" {
   depends_on = [google_project_service.cloudresourcemanager]
 
   disable_dependent_services = true
-  disable_on_destroy = false  # Otherwise we can't retrieve current state.
+  disable_on_destroy         = false # Otherwise we can't retrieve current state.
 }
 
 resource "google_project_service" "container" {
@@ -21,7 +21,7 @@ resource "google_project_service" "container" {
   depends_on = [google_project_service.compute]
 
   disable_dependent_services = true
-  disable_on_destroy = false
+  disable_on_destroy         = false
 }
 
 resource "google_project_service" "iam" {
@@ -30,7 +30,7 @@ resource "google_project_service" "iam" {
   depends_on = [google_project_service.cloudresourcemanager]
 
   disable_dependent_services = true
-  disable_on_destroy = false
+  disable_on_destroy         = false
 }
 
 resource "google_container_cluster" "k8s" {

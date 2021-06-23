@@ -48,7 +48,7 @@ resource "kubernetes_deployment" "traefik_web" {
         container {
           name  = "traefik"
           image = "traefik:v2.1.9"
-          args  = ["--entrypoints.web.address=:80",
+          args = ["--entrypoints.web.address=:80",
             "--entrypoints.websecure.address=:443",
             "--entrypoints.ping.address=:10254",
             "--ping.entrypoint=ping",
@@ -64,12 +64,12 @@ resource "kubernetes_deployment" "traefik_web" {
             # "--api.insecure=true",
 
             # Verbose logging. Change to ERROR to disable.
-            "--log.level=INFO"]
+          "--log.level=INFO"]
 
           port {
             name           = "web"
             container_port = 80
-            host_port = 80
+            host_port      = 80
           }
 
           port {
@@ -80,7 +80,7 @@ resource "kubernetes_deployment" "traefik_web" {
           port {
             name           = "websecure"
             container_port = 443
-            host_port = 443
+            host_port      = 443
           }
 
           liveness_probe {

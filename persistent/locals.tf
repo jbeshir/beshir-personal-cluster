@@ -1,5 +1,5 @@
 # Needs to match values in ../cluster.tf
-locals  {
+locals {
   project = "beshir-personal"
-  region = "us-central1"
+  region  = "us-central1"
 }

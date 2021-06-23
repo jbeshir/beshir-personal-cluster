@@ -27,7 +27,7 @@ resource "kubernetes_deployment" "howwastoday-backend" {
           image = "gcr.io/${var.project}/howwastoday:latest"
           name  = "howwastoday"
           port {
-            name = "http"
+            name           = "http"
             container_port = 80
           }
         }
@@ -47,7 +47,7 @@ resource "kubernetes_service" "howwastoday-http" {
     }
     type = "ClusterIP"
     port {
-      port = 30830
+      port        = 30830
       target_port = 80
 
     }

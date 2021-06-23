@@ -1,5 +1,5 @@
 output "ingressroutescrdversion" {
-  value = "ingressroutes-crd-1"  # Keep updated with resource name. Hack so that resources recreate.
+  value = "ingressroutes-crd-1" # Keep updated with resource name. Hack so that resources recreate.
 }
 
 
@@ -21,7 +21,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "ingressroutetcps-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "ingressroutetcps-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -39,7 +39,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "ingressrouteudps-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "ingressrouteudps-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -57,7 +57,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "middlewares-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "middlewares-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -75,7 +75,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "serverstransports-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "serverstransports-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -93,7 +93,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "tlsoptions-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "tlsoptions-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -111,7 +111,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "tlsstores-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "tlsstores-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -129,7 +129,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "traefikservices-crd-1" {  # Increment on all changes. Hack so that changes recreate.
+resource "kubectl_manifest" "traefikservices-crd-1" { # Increment on all changes. Hack so that changes recreate.
   yaml_body = <<YAML
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition

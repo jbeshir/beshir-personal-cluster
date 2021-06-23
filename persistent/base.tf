@@ -1,5 +1,5 @@
 module "base" {
-  source = "./base"
+  source  = "./base"
   project = local.project
-  region = local.region
+  region  = local.region
 }

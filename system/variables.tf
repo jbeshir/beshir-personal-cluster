@@ -1,3 +1,3 @@
-variable kubeipserviceaccountprivatekey {
+variable "kubeipserviceaccountprivatekey" {
   type = string
 }

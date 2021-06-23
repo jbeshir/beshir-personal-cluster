@@ -1,9 +1,9 @@
 module "routes" {
-  source = "./routes"
+  source                     = "./routes"
   ingress-routes-crd-version = module.crds.ingressroutescrdversion
-  project = var.project
+  project                    = var.project
   providers = {
-    google = google
+    google  = google
     kubectl = kubectl
   }
 }

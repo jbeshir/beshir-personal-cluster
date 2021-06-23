@@ -1,7 +1,7 @@
-variable project {
+variable "project" {
   type = string
 }
 
-variable region {
+variable "region" {
   type = string
 }
