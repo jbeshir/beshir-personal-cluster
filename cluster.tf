@@ -1,16 +1,23 @@
-locals {
-  project = "beshir-personal"
+variable "project" {
+  type    = string
+  default = "beshir-personal"
+}
+
+locals  {
+  cluster_name = "main-cluster"
+  region = "us-central1"
+  zone = "${local.region}-a"
 }
 
 module "cluster" {
 
-  project                             = local.project
+  project                             = var.project
   source                              = "./gke"
-  region                              = "us-central1"
-  location                            = "us-central1-a"
-  cluster_name                        = "main-cluster"
-  cluster_range_name                  = "main-cluster-pods"
-  services_range_name                 = "main-cluster-services"
+  region                              = local.region
+  location                            = local.zone
+  cluster_name                        = local.cluster_name
+  cluster_range_name                  = "${local.cluster_name}-pods"
+  services_range_name                 = "${local.cluster_name}-services"
   daily_maintenance_window_start_time = "03:00"
   subnet_cidr_range                   = "10.0.0.0/16" # 10.0.0.0 -> 10.0.255.255
   master_ipv4_cidr_block              = "10.1.0.0/28" # 10.1.0.0 -> 10.1.0.15
@@ -20,7 +27,7 @@ module "cluster" {
   source_subnetwork_ip_ranges_to_nat  = "LIST_OF_SUBNETWORKS"
   source_ip_ranges_to_nat             = ["ALL_IP_RANGES"]
   nat_log_filter                      = "ERRORS_ONLY"
-  logging_service                     = "none"  # Costs 200MB per node at this scale, and produces a LOT of logs.
+  logging_service                     = "none"  # Costs 200MB per node at this scale, and produces a LOT of logs
   monitoring_service                  = "monitoring.googleapis.com/kubernetes"
 
   node_pools = {
@@ -35,7 +42,7 @@ module "cluster" {
       disk_size_gb       = 10
       disk_type          = "pd-standard"
       image_type         = "COS"
-      service_account    = "main-cluster-serviceaccount@${local.project}.iam.gserviceaccount.com"
+      service_account    = "main-cluster-serviceaccount@${var.project}.iam.gserviceaccount.com"
     }
     web-pool = {
       machine_type       = "e2-micro"
@@ -48,7 +55,7 @@ module "cluster" {
       disk_size_gb       = 10
       disk_type          = "pd-standard"
       image_type         = "COS"
-      service_account    = "main-cluster-serviceaccount@${local.project}.iam.gserviceaccount.com"
+      service_account    = "main-cluster-serviceaccount@${var.project}.iam.gserviceaccount.com"
     }
   }
 

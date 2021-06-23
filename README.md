@@ -1,14 +1,43 @@
-Fork of https://github.com/nkoson/gke-tutorial with the changes needed to stand up my cluster.
+My personal miniature low-cost GKE cluster Terraform and Kitchen configuration for running small apps (e.g. Go servers). Built starting from https://github.com/nkoson/gke-tutorial, attempting to fully automate configuration and updates by bringing the whole setup into terraform, make it possible to write tests, and configure to deploy my own services.
 
-Rough deployment process:
+Budget should be well under $10/mo, all in. For details on how see the above-linked tutorial, but basically the idea is to use small numbers of small nodes, and avoid charges for Cloud Load Balancing (~$18/mo) by internally hosting a single traefik ingress server and using kubeip to give it a static IP.
 
-- Deploy cluster with terraform at top level.
-- Set kubeip secret per original tutorial.
-- Deploy Kubernetes CRDs using terraform in system/traefik-crds 
-- Deploy any services configured in system/routes.tf. It will refuse to allow the routes to be deployed otherwise.
-- Set any TLS secrets in system/routes.tf with certificates from Cloudflare for their domains, e.g. kubectl create secret tls howwastoday-cf-certificate --cert=[pem cert] --key=[pem key] --namespace=howwastoday
-- Deploy the cluster system services (kubeip, traefik, etc) using terraform in system.
+In principle this project would work as a template for others- a fork, change of project names, and replacing the services and routes with whatever you want to run should get a ready to deploy infrastructure. But this is a learning project, so might be broken in ways I don't know about and is certainly not using idioms effectively yet.
 
-Subsequently changes to things other than the CRDs can generally be performed with just a terraform apply.
+For dev environment requirements, you need gcloud, Terraform, and Ruby for the tests, and also see the Auth section to be able to authenticate to GCP.
 
-The CRDs are painful, because some changes to them invalidate the resources using them. Also, a lot of incremental updates fail for them. The process I know so far is to remove the resources using them from the config, tf apply, remove the CRDs from the config, tf apply, readd the modified versions to the config, tf apply, and finally restore the resources using them and tf apply. 
+Test/production environment requirements before initial deployment:
+
+- Create the test and production GCP projects.
+- Enable Cloud Resource Manager API, Cloud Storage API, and Compute Engine APIs if not already enabled, in both.
+- Ensure your account has the Storage Admin permission on both projects (might be a way to narrow this down).
+- For each service in services, push a Docker image of that service to each project's container registry.
+- Prod only: Go to the "persistent" subfolder, create a "secrets" subfolder, add all files required by mentioned in the various *-secrets.tf to that subfolder, and terraform apply. This creates the static IP, provides all the secrets for the cluster that I don't want in source code, and is where I can instantiate persistent stores for my services that should not be destroyed by rebuilding infrastructure, etc. In the test environment the test fixture should be made to provide ephemeral resources.
+
+With the above done it should now be possible to deploy the cluster:
+
+- Run "bundle install" to download Kitchen-Terraform to run the tests.
+- Run "bundle exec kitchen converge" to deploy to the test environment.
+- Run "bundle exec kitchen verify" to run tests.
+- Run "bundle exec kitchen destroy" to tear down the test environment.
+- If all tests passed, run "terraform init", then "terraform apply" to create/update the production environment.
+
+This process should be able to be performed on Cloud Build for CI/CD- as yet untested.
+
+Note that the terraform apply step cannot be *fully* tested by the test environment; changing configuration is not quite the same thing as recreating it, which is what the testing process checks, and e.g. overly full node pools can inhibit rolling update strategies. CRD changes might also cause problems if terraform attempts to incrementally update them, although I try to prevent that from happening.  The alternative process of a full "terraform destroy" and "terraform apply" should produce results matching the test environment (modulo different persistent storage contents) but incurs downtime. For a personal cluster this will do for now.
+
+### Auth
+
+Rather than giving extra permissions to the default compute service account and retrieving a token for that per nkoson's original tutorial, this setup uses implicit authentication to Google and thus requires you have run "gcloud auth login" and "gcloud auth application-default login".
+
+### WSL
+
+Terraform can misbehave inside WSL2, seemingly because WSL2 lacks properly functioning IPv6 connectivity, and this causes terraform to fail to reach registry.terraform.io.
+
+To work around this, run terraform init on Windows in all of root, persistent, and test/fixtures/tf_module, and inside WSL run terraform init -plugin-path=[path to ]
+
+After updating terraform providers, it may also be necessary to run on Windows:
+
+<code>terraform providers lock -platform=linux_amd64 -platform=windows_amd64</code>
+
+To set all the provider hashes.

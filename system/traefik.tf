@@ -48,7 +48,23 @@ resource "kubernetes_deployment" "traefik_web" {
         container {
           name  = "traefik"
           image = "traefik:v2.1.9"
-          args  = ["--entrypoints.web.address=:80", "--entrypoints.websecure.address=:443", "--entrypoints.ping.address=:10254", "--ping.entrypoint=ping", "--log.level=ERROR", "--providers.kubernetescrd", "--api.dashboard=true", "--api.insecure=true", "--log.level=INFO"]
+          args  = ["--entrypoints.web.address=:80",
+            "--entrypoints.websecure.address=:443",
+            "--entrypoints.ping.address=:10254",
+            "--ping.entrypoint=ping",
+
+            # This project uses Kubernetes CRDs to configure traefik.
+            "--providers.kubernetescrd",
+
+            # Trusts Cloudflare's reported origin IPs; passes the true origin IP on to the services.
+            "--entrypoints.https.forwardedHeaders.trustedIPs=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22",
+
+            # Enable dashboard. Can be accessed using kubectl port-forward.
+            # "--api.dashboard=true",
+            # "--api.insecure=true",
+
+            # Verbose logging. Change to ERROR to disable.
+            "--log.level=INFO"]
 
           port {
             name           = "web"
@@ -120,18 +136,6 @@ resource "kubernetes_namespace" "traefik" {
       name = "traefik"
     }
   }
-}
-
-resource "kubernetes_secret" "cloudflare_apikey_secret" {
-  metadata {
-    name      = "cloudflare-apikey-secret"
-    namespace = "traefik"
-  }
-  data = {
-    apikey = "<cloudflare apikey here>"
-  }
-
-  type = "Opaque"
 }
 
 resource "kubernetes_cluster_role" "traefik" {

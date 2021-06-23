@@ -1,0 +1,16 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "hashes": [
+        "h1:TieK0+Irh7i9nBWEFVQjJeqwyZbHwW54w+Ehc03U0lo="
+      ],
+      "url": "terraform-provider-kubernetes-alpha_0.5.0_linux_amd64.zip"
+    },
+    "windows_amd64": {
+      "hashes": [
+        "h1:LXYEZda9g+2HbORJjOCtYD+jW5o5knVMsfFd1u01hgs="
+      ],
+      "url": "terraform-provider-kubernetes-alpha_0.5.0_windows_amd64.zip"
+    }
+  }
+}

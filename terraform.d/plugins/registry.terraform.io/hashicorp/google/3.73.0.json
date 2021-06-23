@@ -1,0 +1,16 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "hashes": [
+        "h1:WJjuV3KN/1AaWAve8csP0WrPB2C0+I3ltY+WIT3Bb3A="
+      ],
+      "url": "terraform-provider-google_3.73.0_linux_amd64.zip"
+    },
+    "windows_amd64": {
+      "hashes": [
+        "h1:ixPOyvJPgxJ4BGtm1IU7iXd662wP8JIaR4ErFX/n3HQ="
+      ],
+      "url": "terraform-provider-google_3.73.0_windows_amd64.zip"
+    }
+  }
+}

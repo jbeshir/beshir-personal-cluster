@@ -1,0 +1,16 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "hashes": [
+        "h1:vpC6bgUQoJ0znqIKVFevOdq+YQw42bRq0u+H3nto8nA="
+      ],
+      "url": "terraform-provider-null_3.1.0_linux_amd64.zip"
+    },
+    "windows_amd64": {
+      "hashes": [
+        "h1:SFT7X3zY18CLWjoH2GfQyapxsRv6GDKsy9cF1aRwncc="
+      ],
+      "url": "terraform-provider-null_3.1.0_windows_amd64.zip"
+    }
+  }
+}

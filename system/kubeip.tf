@@ -163,6 +163,7 @@ resource "kubernetes_deployment" "kubeip" {
       }
     }
   }
+  depends_on = [kubernetes_secret.kubeip_key]
 }
 
 resource "kubernetes_service_account" "kubeip_serviceaccount" {
@@ -208,3 +209,15 @@ resource "kubernetes_cluster_role_binding" "kubeip_serviceaccount" {
   }
 }
 
+resource "kubernetes_secret" "kubeip_key" {
+  metadata {
+    name = "kubeip-key"
+    namespace = "kube-system"
+  }
+
+  data = {
+    "kubeip-key.json" = var.kubeipserviceaccountprivatekey
+  }
+
+  type = "kubernetes.io/generic"
+}

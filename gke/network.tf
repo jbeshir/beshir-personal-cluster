@@ -60,18 +60,6 @@ resource "google_compute_router_nat" "gke-nat" {
   udp_idle_timeout_sec             = 30
 }
 
-resource "google_compute_address" "static-ingress" {
-  name     = "static-ingress"
-  project  = var.project
-  region   = var.region
-  provider = google-beta
-
-  # address labels are a beta feature
-  labels = {
-    kubeip = "static-ingress"
-  }
-}
-
 # By default, firewall rules restrict cluster master to only initiate TCP connections to nodes on ports 443 (HTTPS) and 10250 (kubelet)
 resource "google_compute_firewall" "default" {
   name    = "web-ingress"
