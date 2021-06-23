@@ -1,7 +1,7 @@
 resource "kubernetes_config_map" "traefik_config" {
   metadata {
     name      = "traefik-config"
-    namespace = "traefik"
+    namespace = kubernetes_namespace.traefik.metadata.0.name
   }
 
   data = {
@@ -12,7 +12,7 @@ resource "kubernetes_config_map" "traefik_config" {
 resource "kubernetes_deployment" "traefik_web" {
   metadata {
     name      = "traefik-web"
-    namespace = "traefik"
+    namespace = kubernetes_namespace.traefik.metadata.0.name
 
     labels = {
       "app.kubernetes.io/name" = "traefik-web"
@@ -212,19 +212,19 @@ resource "kubernetes_cluster_role_binding" "traefik" {
   subject {
     kind      = "ServiceAccount"
     name      = "traefik-serviceaccount"
-    namespace = "traefik"
+    namespace = kubernetes_namespace.traefik.metadata.0.name
   }
 
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = "traefik"
+    name      = kubernetes_namespace.traefik.metadata.0.name
   }
 }
 
 resource "kubernetes_service_account" "traefik_serviceaccount" {
   metadata {
     name      = "traefik-serviceaccount"
-    namespace = "traefik"
+    namespace = kubernetes_namespace.traefik.metadata.0.name
   }
 }

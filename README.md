@@ -12,7 +12,7 @@ Test/production environment requirements before initial deployment:
 - Enable Cloud Resource Manager API, Cloud Storage API, and Compute Engine APIs if not already enabled, in both.
 - Ensure your account has the Storage Admin permission on both projects (might be a way to narrow this down).
 - For each service in services, push a Docker image of that service to each project's container registry.
-- Prod only: Go to the "persistent" subfolder, create a "secrets" subfolder, add all files required by mentioned in the various *-secrets.tf to that subfolder, and terraform apply. This creates the static IP, provides all the secrets for the cluster that I don't want in source code, and is where I can instantiate persistent stores for my services that should not be destroyed by rebuilding infrastructure, etc. In the test environment the test fixture should be made to provide ephemeral resources.
+- Prod only: Go to the "persistent" subfolder, create a "secrets" subfolder, add all files required by mentioned in the various *-secrets.tf to that subfolder, and terraform apply. This creates the static IP, provides all the secrets for the cluster that I don't want in source code, and is where I can instantiate persistent stores for my services that should not be destroyed by rebuilding infrastructure, etc. In the test environment the test fixture is made to provide ephemeral resources.
 
 With the above done it should now be possible to deploy the cluster:
 
@@ -32,9 +32,9 @@ Rather than giving extra permissions to the default compute service account and 
 
 ### WSL
 
-Terraform can misbehave inside WSL2, seemingly because WSL2 lacks properly functioning IPv6 connectivity, and this causes terraform to fail to reach registry.terraform.io.
+Terraform can misbehave inside WSL2, seemingly because WSL2 lacks properly functioning IPv6 connectivity, and this seems to cause terraform to fail to reach registry.terraform.io.
 
-To work around this, run terraform init on Windows in all of root, persistent, and test/fixtures/tf_module, and inside WSL run terraform init -plugin-path=[path to ]
+To work around this, run terraform init on Windows in all of root, persistent, and test/fixtures/tf_module, and inside WSL run terraform init -plugin-path=[path to terraform.d/plugins] in each of them.
 
 After updating terraform providers, it may also be necessary to run on Windows:
 

@@ -1,1 +1,1 @@
-projects/beshir-personal-test/roles/main_cluster_kubeip
+projects/beshir-personal-test/serviceAccounts/main-kubeip-serviceaccount@beshir-personal-test.iam.gserviceaccount.com

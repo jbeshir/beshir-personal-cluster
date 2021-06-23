@@ -6,5 +6,4 @@ mkShell {
     ruby
     terraform
   ];
-  shellHook = ''gcloud config set project beshir-personal'';
 }

@@ -1,4 +1,5 @@
 module "kt_test" {
   source = "../../.."
-  project = "beshir-personal-test"
+  project = local.project
+  persistent-secrets-bucket-contents = module.persistent-replacement.persistent-secrets-bucket-contents
 }

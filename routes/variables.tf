@@ -2,6 +2,10 @@ variable "ingress-routes-crd-version" {
   type = string
 }
 
-variable "project" {
+variable "persistent-secrets-bucket-name" {
   type = string
+}
+
+variable "persistent-secrets-bucket-contents" {
+  type = list(any)
 }

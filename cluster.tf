@@ -1,8 +1,3 @@
-variable "project" {
-  type    = string
-  default = "beshir-personal"
-}
-
 locals {
   cluster_name = "main-cluster"
   region       = "us-central1"
