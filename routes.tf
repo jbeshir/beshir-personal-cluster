@@ -7,4 +7,8 @@ module "routes" {
     google  = google
     kubectl = kubectl
   }
+  ethtruism-namespace-name      = module.services.ethtruism-namespace-name
+  ethtruism-http-service-info   = module.services.ethtruism-http-service-info
+  howwastoday-namespace-name    = module.services.howwastoday-namespace-name
+  howwastoday-http-service-info = module.services.howwastoday-http-service-info
 }

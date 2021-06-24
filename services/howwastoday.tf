@@ -49,7 +49,6 @@ resource "kubernetes_service" "howwastoday-http" {
     port {
       port        = 30830
       target_port = 80
-
     }
   }
 }
