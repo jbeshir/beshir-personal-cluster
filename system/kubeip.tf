@@ -25,6 +25,7 @@ resource "kubernetes_config_map" "kubeip_config" {
 
     KUBEIP_TICKER = "5"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_deployment" "kubeip" {
@@ -171,6 +172,7 @@ resource "kubernetes_service_account" "kubeip_serviceaccount" {
     name      = "main-kubeip-serviceaccount"
     namespace = "kube-system"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_cluster_role" "kubeip_serviceaccount" {
@@ -189,6 +191,7 @@ resource "kubernetes_cluster_role" "kubeip_serviceaccount" {
     api_groups = [""]
     resources  = ["pods"]
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_cluster_role_binding" "kubeip_serviceaccount" {
@@ -207,6 +210,7 @@ resource "kubernetes_cluster_role_binding" "kubeip_serviceaccount" {
     kind      = "ClusterRole"
     name      = "main-kubeip-serviceaccount"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_secret" "kubeip_key" {
@@ -220,4 +224,5 @@ resource "kubernetes_secret" "kubeip_key" {
   }
 
   type = "kubernetes.io/generic"
+  depends_on = [var.cluster-name]
 }

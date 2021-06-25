@@ -2,6 +2,7 @@ resource "kubernetes_namespace" "ethtruism" {
   metadata {
     name = "ethtruism"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_deployment" "ethtruism-backend" {

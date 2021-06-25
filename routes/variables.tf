@@ -1,3 +1,8 @@
+# Allows establishing dependencies on the CRDs.
+variable "crds" {
+  type = list(any)
+}
+
 variable "ingress-routes-crd-version" {
   type = string
 }

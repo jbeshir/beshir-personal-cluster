@@ -21,6 +21,17 @@ resource "google_project_iam_custom_role" "main_cluster" {
     "resourcemanager.projects.get",
     "storage.objects.get",
     "storage.objects.list",
+
+    # Needed if the Monitoring API is turned on.
+    "monitoring.metricDescriptors.create",
+    "monitoring.metricDescriptors.get",
+    "monitoring.metricDescriptors.list",
+    "monitoring.monitoredResourceDescriptors.get",
+    "monitoring.monitoredResourceDescriptors.list",
+    "monitoring.timeSeries.create",
+
+    # Needed for logging; allows logging to be easily enabled later.
+    "logging.logEntries.create",
   ]
 }
 

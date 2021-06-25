@@ -12,10 +12,12 @@ provisioner:
 verifier:
   name: terraform
   systems:
-    - name: controls
+    - name: external_checks
       backend: local
       controls:
-        - file_check
+        - ethtruism_cert_check
+        - howwastoday_cert_check
+        - ethtruism_serving
 
 platforms:
   - name: terraform

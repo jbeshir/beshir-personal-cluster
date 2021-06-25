@@ -22,7 +22,8 @@ resource "tls_self_signed_cert" "ethtruism-com-self-signed-cert" {
   }
 
   dns_names = [
-    "ethtruism.com", "*.ethtruism.com"
+    "*.ethtruism.com",
+    "ethtruism.com"
   ]
 
   validity_period_hours = 12

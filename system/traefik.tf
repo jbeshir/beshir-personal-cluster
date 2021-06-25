@@ -7,6 +7,7 @@ resource "kubernetes_config_map" "traefik_config" {
   data = {
     CF_API_EMAIL = "your.email@goes.here"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_deployment" "traefik_web" {
@@ -126,6 +127,7 @@ resource "kubernetes_deployment" "traefik_web" {
       }
     }
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_namespace" "traefik" {
@@ -136,6 +138,7 @@ resource "kubernetes_namespace" "traefik" {
       name = "traefik"
     }
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_cluster_role" "traefik" {
@@ -202,6 +205,7 @@ resource "kubernetes_cluster_role" "traefik" {
     api_groups = ["traefik.containo.us"]
     resources  = ["traefikservices"]
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_cluster_role_binding" "traefik" {
@@ -220,6 +224,7 @@ resource "kubernetes_cluster_role_binding" "traefik" {
     kind      = "ClusterRole"
     name      = kubernetes_namespace.traefik.metadata.0.name
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_service_account" "traefik_serviceaccount" {
@@ -227,4 +232,5 @@ resource "kubernetes_service_account" "traefik_serviceaccount" {
     name      = "traefik-serviceaccount"
     namespace = kubernetes_namespace.traefik.metadata.0.name
   }
+  depends_on = [var.cluster-name]
 }

@@ -2,6 +2,7 @@ resource "kubernetes_namespace" "howwastoday" {
   metadata {
     name = "howwastoday"
   }
+  depends_on = [var.cluster-name]
 }
 
 resource "kubernetes_deployment" "howwastoday-backend" {

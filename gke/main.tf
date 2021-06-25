@@ -56,8 +56,23 @@ resource "google_container_cluster" "k8s" {
     enable_private_endpoint = var.enable_private_endpoint
   }
 
+  addons_config {
+    http_load_balancing {
+      disabled = true
+    }
+  }
+
   ip_allocation_policy {
     cluster_secondary_range_name  = var.cluster_range_name
     services_secondary_range_name = var.services_range_name
   }
+
+  # Automatically fill out the local kubectl config.
+  # This COULD be necessary (in some adjusted form, maybe store to another file?),
+  # as part of some workarounds to make cluster creation and usage in a provider in the same tree behave.
+  #
+  # See https://github.com/hashicorp/terraform-provider-kubernetes/issues/1028
+  # provisioner "local-exec" {
+  #   command = "gcloud container clusters get-credentials ${var.cluster_name} --zone=${var.location} --project=${var.project}"
+  # }
 }

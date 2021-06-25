@@ -22,7 +22,8 @@ resource "tls_self_signed_cert" "howwastoday-io-self-signed-cert" {
   }
 
   dns_names = [
-    "howwastoday.io", "*.howwastoday.io"
+    "*.howwastoday.io",
+    "howwastoday.io"
   ]
 
   validity_period_hours = 12

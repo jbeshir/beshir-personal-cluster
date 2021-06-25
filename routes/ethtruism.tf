@@ -16,6 +16,11 @@ resource "kubernetes_secret" "ethtruism-com-tls-secret" {
     name      = "ethtruism-com-tls-secret"
     namespace = var.ethtruism-namespace-name
   }
+
+  # Sometimes https://github.com/hashicorp/terraform-provider-kubernetes/issues/782 seems to happen,
+  # if it's a terraform apply on an existing state, even if data is unchanged.
+  # A rerun of terraform apply seems to fix it.
+  # If this becomes an ongoing problem, ignore_changes = all might fix (at the cost of no cert updates!)
   data = {
     "tls.crt" = data.google_storage_bucket_object_content.ethtruism-com-tls-cert.content
     "tls.key" = data.google_storage_bucket_object_content.ethtruism-com-tls-key.content
@@ -39,6 +44,7 @@ spec:
         - name: ${var.ethtruism-http-service-info.name}
           port: ${var.ethtruism-http-service-info.port}
 YAML
+  depends_on = [var.crds]
 }
 
 resource "kubectl_manifest" "ethtruism-tls-ingressroute-1" { # Increment on all changes. Hack so that changes recreate.
@@ -60,4 +66,5 @@ spec:
   tls:
     secretName: ethtruism-com-tls-secret
 YAML
+  depends_on = [var.crds]
 }

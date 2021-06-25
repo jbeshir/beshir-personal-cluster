@@ -6,7 +6,7 @@ Budget should be well under $10/mo, all in. For details on how that's achieved s
 
 In principle this project would work as a template for others- a fork, change of project names, and replacing the services and routes and secrets with whatever you want to run should get a ready to deploy infrastructure. But this is a learning project, so might be broken in ways I don't know about and is certainly not using idioms effectively yet.
 
-For dev environment requirements, you need gcloud, Terraform, and Ruby for the tests, and also see the Auth section to be able to authenticate to GCP.
+For dev environment requirements, you need gcloud and Terraform, with openssl and Ruby for the tests, and also see the Auth section to be able to authenticate to GCP.
 
 Test/production environment requirements before initial deployment:
 
@@ -24,12 +24,15 @@ With the above done it should now be possible to deploy the cluster:
 - Run "bundle exec kitchen destroy" to tear down the test environment.
 - If all tests passed, run "terraform init", then "terraform apply" to create/update the production environment.
 
-Unfinished:
+
+Further areas of work:
 
 - This process should be able to be performed on Cloud Build for CI/CD, but this is as yet unbuilt. It would be cool if the "persistent" setup could configure as much of this as possible.
-- There's no actual tests written yet- it deploys in a test environment but verify just runs a placeholder test for now.
+- Tests are currently limited to end-to-end testing that the ingress IP is serving services correctly over HTTP and HTTPS with the right TLS certificates. They don't check any of the internal state achieving that.
 
-Note that the terraform apply step cannot be *fully* tested by the test environment; changing configuration is not quite the same thing as recreating it, which is what the testing process checks, and e.g. overly full node pools can inhibit rolling update strategies. CRD changes might also cause problems if Terraform attempts to incrementally update them, although I try to prevent that from happening.  The alternative process of a full "terraform destroy" and "terraform apply" should produce results matching the test environment (modulo different persistent storage contents) but incurs downtime. For a personal cluster this will do for now.
+Note that the terraform apply step cannot be *fully* tested by the test environment; changing configuration is not quite the same thing as recreating it, which is what the testing process checks, and e.g. overly full node pools can inhibit rolling update strategies. CRD changes might also cause problems if Terraform attempts to incrementally update them, although I try to prevent that from happening.  The alternative process of a full "terraform destroy" and rerun of the "terraform apply" command should produce results matching the test environment (modulo different persistent storage contents) but incurs downtime. For a personal cluster this will do for now.
+
+Also note that Terraform does not really like having Kubernetes clusters managed in the same state that manages things deployed into those clusters. If this becomes an issue in future use, splitting /gke/ and cluster from the main module, like persistent, would be a recommended way forwards.  
 
 ### Auth
 

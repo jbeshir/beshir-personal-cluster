@@ -22,7 +22,7 @@ module "cluster" {
   source_subnetwork_ip_ranges_to_nat  = "LIST_OF_SUBNETWORKS"
   source_ip_ranges_to_nat             = ["ALL_IP_RANGES"]
   nat_log_filter                      = "ERRORS_ONLY"
-  logging_service                     = "none" # Costs 200MB per node at this scale, and produces a LOT of logs
+  logging_service                     = "none" # Costs 200MB per node. Would want to be running bigger nodes.
   monitoring_service                  = "monitoring.googleapis.com/kubernetes"
 
   node_pools = {
