@@ -1,8 +1,2 @@
-.bundle
-.kitchen
-.terraform
-terraform.tfstate
-terraform.tfstate.backup
-.terraform.tfstate.lock.info
+/.git
 /google-cloud-sdk
-/persistent/secrets/

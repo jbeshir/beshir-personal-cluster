@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/beshir-personal-cluster.iml" filepath="$PROJECT_DIR$/.idea/beshir-personal-cluster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pulumi.iml" filepath="$PROJECT_DIR$/.idea/pulumi.iml" />
     </modules>
   </component>
 </project>
