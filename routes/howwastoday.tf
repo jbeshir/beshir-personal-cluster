@@ -17,13 +17,16 @@ resource "kubernetes_secret" "howwastoday-io-tls-secret" {
     namespace = var.howwastoday-namespace-name
   }
 
-  # Sometimes https://github.com/hashicorp/terraform-provider-kubernetes/issues/782 seems to happen,
-  # if it's a terraform apply on an existing state, even if data is unchanged.
-  # A rerun of terraform apply seems to fix it.
-  # If this becomes an ongoing problem, ignore_changes = all might fix (at the cost of no cert updates!)
   data = {
     "tls.crt" = data.google_storage_bucket_object_content.howwastoday-io-tls-cert.content
     "tls.key" = data.google_storage_bucket_object_content.howwastoday-io-tls-key.content
+  }
+
+  # Sometimes https://github.com/hashicorp/terraform-provider-kubernetes/issues/782 seems to happen,
+  # if it's a terraform apply on an existing state, even if data is unchanged.
+  # This seems to be the necessary fix, although it means that certificate updates require manual intervention.
+  lifecycle {
+    ignore_changes = all
   }
 }
 

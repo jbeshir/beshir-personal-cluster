@@ -2,7 +2,7 @@
 
 My personal miniature low-cost GKE cluster Terraform and Kitchen configuration for running small apps (e.g. Go servers). Built starting from https://github.com/nkoson/gke-tutorial, attempting to fully automate configuration and updates by bringing the whole setup into Terraform, make it possible to write tests, and configure to deploy my own services.
 
-Budget should be well under $10/mo, all in. For details on how that's achieved see the above tutorial, but basically the idea is to use small numbers of small nodes, and avoid charges for Cloud Load Balancing (~$18/mo) by internally hosting a single Traefik ingress server and using kubeip to give it a static IP.
+Budget should be around $10/mo, all in. For details on how that's achieved see the above tutorial, but basically the idea is to use small numbers of small nodes, and avoid charges for Cloud Load Balancing (~$18/mo) by internally hosting a single Traefik ingress server and using kubeip to give it a static IP.
 
 In principle this project would work as a template for others- a fork, change of project names, and replacing the services and routes and secrets with whatever you want to run should get a ready to deploy infrastructure. But this is a learning project, so might be broken in ways I don't know about and is certainly not using idioms effectively yet.
 

@@ -25,7 +25,13 @@ resource "kubernetes_deployment" "traefik_web" {
   spec {
     replicas = 1
     strategy {
-      type = "Recreate"
+      # We can only have one traefik pod on an ingress node at once.
+      # This means we can't have any surge.
+      type = "RollingUpdate"
+      rolling_update {
+        max_surge = 0
+        max_unavailable = 1
+      }
     }
 
     selector {

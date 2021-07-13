@@ -11,7 +11,16 @@ resource "kubernetes_deployment" "ethtruism-backend" {
     namespace = kubernetes_namespace.ethtruism.metadata.0.name
   }
   spec {
-    replicas = 1
+    replicas = 2  # At least two so when a node gets terminated, we can avoid disruption.
+    strategy {
+      # Since our node pool is very tight on space, we can't rely on surging pods to perform updates.
+      type = "RollingUpdate"
+      rolling_update {
+        max_surge = 0
+        max_unavailable = 1
+      }
+    }
+
     selector {
       match_labels = {
         app = "ethtruism"
@@ -24,6 +33,22 @@ resource "kubernetes_deployment" "ethtruism-backend" {
         }
       }
       spec {
+        affinity {
+          # Run different replicas on different nodes, so we have resilience against node shutdown.
+          pod_anti_affinity {
+            required_during_scheduling_ignored_during_execution {
+              label_selector {
+                match_expressions {
+                  key = "app"
+                  operator = "In"
+                  values = [
+                    "ethtruism"]
+                }
+              }
+              topology_key = "kubernetes.io/hostname"
+            }
+          }
+        }
         container {
           image = "gcr.io/${var.project}/ethtruism:latest"
           name  = "ethtruism"

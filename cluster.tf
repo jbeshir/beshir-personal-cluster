@@ -13,6 +13,7 @@ module "cluster" {
   cluster_name                        = local.cluster_name
   cluster_range_name                  = "${local.cluster_name}-pods"
   services_range_name                 = "${local.cluster_name}-services"
+  node_version = "1.20.6-gke.1000"
   daily_maintenance_window_start_time = "03:00"
   subnet_cidr_range                   = "10.0.0.0/16" # 10.0.0.0 -> 10.0.255.255
   master_ipv4_cidr_block              = "10.1.0.0/28" # 10.1.0.0 -> 10.1.0.15
@@ -33,24 +34,24 @@ module "cluster" {
       max_node_count     = 1
       preemptible        = false
       auto_repair        = true
-      auto_upgrade       = true
       disk_size_gb       = 10
       disk_type          = "pd-standard"
       image_type         = "COS"
       service_account    = "main-cluster-serviceaccount@${var.project}.iam.gserviceaccount.com"
+      version = "1.20.6-gke.1000"
     }
     web-pool = {
       machine_type       = "e2-micro"
-      initial_node_count = 1
-      min_node_count     = 1
+      initial_node_count = 2
+      min_node_count     = 2  # At least two so when a preemptible node gets killed, we avoid disruption.
       max_node_count     = 2
       preemptible        = true
       auto_repair        = true
-      auto_upgrade       = true
       disk_size_gb       = 10
       disk_type          = "pd-standard"
       image_type         = "COS"
       service_account    = "main-cluster-serviceaccount@${var.project}.iam.gserviceaccount.com"
+      version = "1.20.6-gke.1000"
     }
   }
 
