@@ -16,7 +16,7 @@ in (
         go
     ];
 
-    # Get Pulumi and gcloud.
-    shellHooks = ''if [[ -d $PWD/.pulumi ]]; then export PATH=$PATH:$PWD/.pulumi; else curl -O https://get.pulumi.com/releases/sdk/pulumi-v3.6.1-linux-x64.tar.gz;tar -xf pulumi-v3.6.1-linux-x64.tar.gz;rm pulumi-v3.6.1-linux-x64.tar.gz;mv pulumi .pulumi;export PATH=$PATH:$PWD/.pulumi;fi;if [[ -d $PWD/.google-cloud-sdk ]]; then export PATH=$PATH:$PWD/.google-cloud-sdk/bin; else curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;tar -xf google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;rm google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;mv google-cloud-sdk .google-cloud-sdk;export PATH=$PATH:$PWD/.google-cloud-sdk/bin;gcloud components install kubectl;fi'';
+    # Get Pulumi, gcloud, and mockgen (for gomock).
+    shellHooks = ''if [[ -d $PWD/.pulumi ]]; then export PATH=$PATH:$PWD/.pulumi; else curl -O https://get.pulumi.com/releases/sdk/pulumi-v3.6.1-linux-x64.tar.gz;tar -xf pulumi-v3.6.1-linux-x64.tar.gz;rm pulumi-v3.6.1-linux-x64.tar.gz;mv pulumi .pulumi;export PATH=$PATH:$PWD/.pulumi;fi;if [[ -d $PWD/.google-cloud-sdk ]]; then export PATH=$PATH:$PWD/.google-cloud-sdk/bin; else curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;tar -xf google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;rm google-cloud-sdk-346.0.0-linux-x86_64.tar.gz;mv google-cloud-sdk .google-cloud-sdk;export PATH=$PATH:$PWD/.google-cloud-sdk/bin;gcloud components install kubectl;fi;export GOPATH=$PWD/.gopath;export PATH=$PATH:$PWD/.gopath/bin;go install github.com/golang/mock/mockgen@v1.6.0'';
   }
 )

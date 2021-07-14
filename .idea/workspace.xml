@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c6db453-c8c9-46bc-9801-e911869719d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cluster/iam_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock/pulumi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/pulumi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pulumi.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pulumi.dev.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Pulumi.dev.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pulumi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Pulumi.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cluster/iam.go" beforeDir="false" afterPath="$PROJECT_DIR$/cluster/iam.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shell.nix" beforeDir="false" afterPath="$PROJECT_DIR$/shell.nix" afterDir="false" />
@@ -27,6 +32,14 @@
   <component name="GOROOT" url="file://$USER_HOME$/.gosdk/go1.16.5" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -70,7 +83,12 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nameg\GitHub\jbeshir\beshir-personal-cluster-pulumi\test" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.Test">
     <configuration name="go build beshir-personal-cluster" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="pulumi" />
       <working_directory value="$PROJECT_DIR$" />
@@ -80,6 +98,21 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="Test" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="pulumi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="beshir-personal-cluster/cluster" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="./..." />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build beshir-personal-cluster" />
+      <item itemvalue="Go Test.Test" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,5 +137,12 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="GoTestRunConfiguration">
+        <watch expression="" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

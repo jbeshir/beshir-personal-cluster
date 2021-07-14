@@ -1,3 +1,4 @@
 /.git
 /.google-cloud-sdk
+/.gopath
 /.pulumi
