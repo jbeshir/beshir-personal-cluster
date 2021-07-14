@@ -1,2 +1,3 @@
 /.git
-/google-cloud-sdk
+/.google-cloud-sdk
+/.pulumi
